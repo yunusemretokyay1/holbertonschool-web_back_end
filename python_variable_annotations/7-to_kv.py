@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 from typing import List, Union, Tuple
 
 def to_kv(k: str, v: Union[int, float]) -> Tuple[str, float]:
@@ -13,3 +14,4 @@ def to_kv(k: str, v: Union[int, float]) -> Tuple[str, float]:
     Tuple[str, float]: A tuple containing the key 'k' and the square of 'v' as a float.
     """
     return k, float(v ** 2)
+
