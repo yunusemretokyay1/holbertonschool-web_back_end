@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-
+"""
+This time, this file uses
+'Tuple' to specify that 'to_kv'
+returns a tuple, and 'Union'
+for the 'v' parameter.
+"""
 from typing import Tuple, Union
 
 
