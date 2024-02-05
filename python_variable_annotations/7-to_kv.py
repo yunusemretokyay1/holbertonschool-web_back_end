@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 
-from typing import List, Union, Tuple
+from typing import Tuple, Union
+
 
 def to_kv(k: str, v: Union[int, float]) -> Tuple[str, float]:
     """
-    Converts the input value 'v' to its square and returns a tuple.
+    Returns a tuple with:
+    'k' as the first item and
+    the float representation
+    of v squared as the second item.
 
-    Parameters:
-    - k (str): The key value.
-    - v (Union[int, float]): The value which can be an integer or a float.
-
-    Returns:
-    Tuple[str, float]: A tuple containing the key 'k' and the square of 'v' as a float.
+    Assumes that 'k' is of type 'str'
+    and 'v' is of type 'int' or of type 'float'.
     """
     return k, float(v ** 2)
