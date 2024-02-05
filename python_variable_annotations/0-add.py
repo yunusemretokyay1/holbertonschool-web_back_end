@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
+"""
+Has function 'add', which
+takes 2 arguments, and returns their sum.
+
+Uses Python type hints to specify that 'add'
+takes float arguments and returns a float.
+"""
+
+
 def add(a: float, b: float) -> float:
     """
-    Adds two floating-point numbers and returns the result.
+    Returns a + b.
 
-    Parameters:
-    - a (float): The first floating-point number.
-    - b (float): The second floating-point number.
-
-    Returns:
-    float: The sum of the two input numbers.
+    'a', 'b' and the returned result
+    are assumed to be of type 'float'.
     """
     return a + b
