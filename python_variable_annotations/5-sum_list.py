@@ -13,3 +13,6 @@ def sum_list(input_list: List[float]) -> float:
     float: The sum of the elements in the input list.
     """
     return sum(input_list)
+
+
+# Ensure there are two blank lines after the function and add a newline at the end of the file.
