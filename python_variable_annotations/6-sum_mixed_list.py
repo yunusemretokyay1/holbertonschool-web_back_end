@@ -11,19 +11,15 @@ to specify that the input for 'sum_mixed_list'
 is a list of ints/floats, and that
 'sum_mixed_list' returns a float.
 """
-
 from typing import List, Union
+
 
 def sum_mixed_list(mxd_lst: List[Union[int, float]]) -> float:
     """
-    Calculates the sum of integers and floats in the input list.
-
-    Parameters:
-    - mxd_lst (List[Union[int, float]]): A list containing integers and floats.
-
-    Returns:
-    float: The sum of the elements in the input list.
+    Returns the sum of all of the numbers in 'mxd_list',
+    assuming that 'mxd_list' is a list,
+    and that anything 'mxd_list' contains
+    is a float or an int.
     """
     return sum(mxd_lst)
-
 
