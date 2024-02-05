@@ -21,4 +21,3 @@ def concat(str1: str, str2: str) -> str:
     assumed to be of type 'str'.
     """
     return str1 + str2
-    
