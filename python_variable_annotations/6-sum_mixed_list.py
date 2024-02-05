@@ -12,7 +12,6 @@ is a list of ints/floats, and that
 'sum_mixed_list' returns a float.
 """
 
-
 from typing import List, Union
 
 def sum_mixed_list(mxd_lst: List[Union[int, float]]) -> float:
