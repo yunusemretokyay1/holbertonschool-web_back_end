@@ -4,18 +4,11 @@ async generator module
 """
 import asyncio
 import random
-
 from typing import Generator
-
-
-import random
-import asyncio
-from typing import Generator
-
 
 async def async_generator() -> Generator[float, None, None]:
     '''
-        Loops 10 times wit a 1 sec wait
+        Loops 10 times with a 1 sec wait
 
     '''
     for integer in range(10):
