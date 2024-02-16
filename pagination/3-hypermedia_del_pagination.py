@@ -7,6 +7,7 @@ import csv
 import math
 from typing import List, Dict
 
+
 class Server:
     """
     Server class to paginate a database of popular baby names.
@@ -28,6 +29,7 @@ class Server:
             self.__dataset = dataset[1:]
 
         return self.__dataset
+
     def indexed_dataset(self) -> Dict[int, List]:
         """
         Dataset from 'DATA_FILE',
@@ -44,10 +46,41 @@ class Server:
                 i: dataset[i] for i in range(len(dataset))
             }
         return self.__indexed_dataset
+
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """
         Returns a dictionary:
-            """
+        {
+            "index": 'index',
+            "next_index":
+                the index of the first row of the next page
+                from this one. Should be 'index + page_size'.
+            "page_size":
+                the amount of items in the requested page.
+                It may not always be 'page_size', since some
+                items may have been deleted.
+            data:
+                the rows that, according to their indeces,
+                are supposed to be displayed in this page,
+                from 'index' to 'index + page_size'.
+                Some of them may be deleted, but their indexes
+                remain the same.
+        }
+
+        Normally, the data in 'self.indexed_data()'
+        has all of the rows in 'DATA_FILE',
+        all indexed properly, from [0, rows).
+
+        But, if a row gets deleted from 'self',
+        since the cache in 'self.indexed_data()' is a dictionary
+        instead of a list, the row being deleted doesn't offset
+        the indexes of the other items.
+
+        In this method, we return all of the items
+        in the range of ['index', 'index + page_size'),
+        but skipping the rows that were deleted.
+        """
+
         INDEXED_DATASET: Dict[int, List] = self.indexed_dataset()
 
         PAGE_DATA: List[List] = [
