@@ -10,7 +10,6 @@ import logging
 from os import environ
 import mysql.connector
 
-
 PII_FIELDS = "email", "name", "ssn", "password", "phone"
 
 
@@ -83,6 +82,7 @@ def get_logger() -> logging.Logger:
     result.addHandler(HANDLER)
 
     return result
+
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
     """
