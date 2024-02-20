@@ -7,6 +7,8 @@ This file is meant to be run in a server.
 from typing import List
 import re
 import logging
+from os import environ
+import mysql.connector
 
 
 PII_FIELDS = "email", "name", "ssn", "password", "phone"
@@ -81,3 +83,21 @@ def get_logger() -> logging.Logger:
     result.addHandler(HANDLER)
 
     return result
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """
+    Using environment variables
+    'PERSONAL_DATA_DB_USERNAME',
+    'PERSONAL_DATA_DB_PASSWORD',
+    'PERSONAL_DATA_DB_HOST' and
+    'PERSONAL_DATA_DB_NAME',
+
+    this function returns a MySQL connector
+    for the database containing the PII.
+    """
+    return mysql.connector.connect(
+        user=environ.get("PERSONAL_DATA_DB_USERNAME"),
+        password=environ.get("PERSONAL_DATA_DB_PASSWORD"),
+        host=environ.get("PERSONAL_DATA_DB_HOST"),
+        database=environ.get("PERSONAL_DATA_DB_NAME")
+    )
