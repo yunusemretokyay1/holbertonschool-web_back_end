@@ -11,12 +11,14 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
+
 @app.errorhandler(401)
 def unauthorized(error):
     """
     Unauthorized (401) error handler
     """
     return jsonify({"error": "Unauthorized"}), 401
+
 
 if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")
