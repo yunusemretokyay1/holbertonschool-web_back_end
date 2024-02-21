@@ -10,18 +10,26 @@ class Auth():
     Auth class
     """
 
-   def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-    """
-    Check if authentication is required for the given path
-    """
-    if path is None:
+    def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
+        """
+        require_auth function
+        """
+        if excluded_paths is None or excluded_paths == '':
+            return True
+        if path is not None:
+            if path[len(path) - 1] is not '/':
+                path += '/'
+        if path is None:
+            return True
+        for item in excluded_paths:
+            asterisk = item.find("*")
+            if asterisk != -1 and len(path) >= len(item):
+                pathcpy = path[: asterisk]
+                if pathcpy == item[: asterisk]:
+                    return False
+            elif path == item:
+                return False
         return True
-    if excluded_paths is None or len(excluded_paths) == 0:
-        return True
-    for excluded_path in excluded_paths:
-        if path.startswith(excluded_path):
-            return False
-    return True
 
     def authorization_header(self, request=None) -> str:
         """
