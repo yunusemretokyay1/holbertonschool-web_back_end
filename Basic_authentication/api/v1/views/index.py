@@ -3,6 +3,7 @@
 """
 from flask import jsonify, abort
 from api.v1.views import app_views
+from flask import abort
 
 
 @app_views.route('/status', methods=['GET'], strict_slashes=False)
@@ -24,3 +25,12 @@ def stats() -> str:
     stats = {}
     stats['users'] = User.count()
     return jsonify(stats)
+
+
+@app_views.route('/unauthorized/')
+def unauthorized() -> None:
+    """
+    This path was made to test
+    the 401 error + Flask.
+    """
+    abort(401)
