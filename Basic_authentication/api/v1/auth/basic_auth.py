@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-""" Auth module
-"""
 from api.v1.auth.auth import Auth
 import base64
 from typing import TypeVar
@@ -11,7 +8,8 @@ class BasicAuth(Auth):
     Basic Auth class
     """
 
-    def extract_base64_authorization_header(self, authorization_header: str) -> str:
+    def extract_base64_authorization_header(
+            self, authorization_header: str) -> str:
         """
         extract_base64_authorization_header function
         """
@@ -23,9 +21,10 @@ class BasicAuth(Auth):
             return None
         return authorization_header[6:]
     
-
-    def decode_base64_authorization_header(self, base64_authorization_header: str) -> str:
-        """decode_base64_authorization_header
+    def decode_base64_authorization_header(
+            self, base64_authorization_header: str) -> str:
+        """
+        Decode a Base64 string
         """
         if base64_authorization_header is None:
             return None
