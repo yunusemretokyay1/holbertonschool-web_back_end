@@ -3,10 +3,9 @@
 """
 from flask import jsonify, abort
 from api.v1.views import app_views
-from typing import Tuple
 
 
-@app_views.route('/status/', methods=['GET'], strict_slashes=False)
+@app_views.route('/status', methods=['GET'], strict_slashes=False)
 def status() -> str:
     """ GET /api/v1/status
     Return:
@@ -27,19 +26,21 @@ def stats() -> str:
     return jsonify(stats)
 
 
-@app_views.route('/unauthorized/')
-def unauthorized() -> None:
+@app_views.route('/unauthorized/', methods=['GET'], strict_slashes=False)
+def unauthorized():
     """
-    This path was made to test
-    the 401 error + Flask.
+    GET /api/v1/unauthorized
+    Return:
+      - error 401
     """
     abort(401)
 
 
-@app_views.route('/forbidden/')
+@app_views.route('/forbidden/', methods={'GET'}, strict_slashes=False)
 def forbidden():
     """
-    This path was made to test
-    the 403 error + Flask.
+    GET /api/v1/forbidden
+    Return:
+      - error 403
     """
     abort(403)
