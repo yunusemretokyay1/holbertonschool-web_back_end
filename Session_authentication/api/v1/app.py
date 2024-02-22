@@ -1,6 +1,13 @@
 #!/usr/bin/env python3
 """
-Route module for the API
+Route module for the API.
+
+Defines the protocol for every request,
+and deploys the correct type of authentication
+based on the environment variable 'AUTH_TYPE'.
+
+Also defines 3 URL paths and their responses.
+(read below)
 """
 from os import getenv
 from api.v1.views import app_views
@@ -18,12 +25,22 @@ app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 auth: Auth = None
+"""
+Should be an instance of a child class of 'Auth',
+depending on which authentication type is being
+run on this server,
 
-# 'AUTH_TYPE' environment variable's value determines the authentication type
+defined in the environment variable 'AUTH_TYPE'.
+"""
+# Fulfill above docstring
 AUTH_TYPE: str = os.environ.get("AUTH_TYPE", None)
 
-# Define the appropriate authentication method based on the 'AUTH_TYPE'
+auth: Auth = None
+
 if AUTH_TYPE == "basic_auth":
+    # key may not exist.
+    # IF the key doesn't exist, we treat its value as None.
+    # and go with Auth.
     auth = BasicAuth()
 elif AUTH_TYPE == "session_auth":
     auth = SessionAuth()
@@ -34,41 +51,66 @@ else:
 @app.before_request
 def authenticate() -> None:
     """
-    Before processing any request, this function checks if the URL path
-    requires authentication. It then tries to validate the user's auth details
-    based on the AUTH method.
+    Before doing anything with a request,
 
-    If the user hasn't sent an AUTH header nor a session cookie, it aborts with
-    a response code of 401 (Unauthorized).
+    This function
+    checks if the URL path the user is requesting
+    requires authorization.
 
-    If the AUTH method is Basic and the user's request uses Basic, it attempts
-    to validate the user's credentials.
+    If it does, this function then tries to validate
+    the user's auth details.
 
-    If the AUTH method is Basic and the user is using SessionAuth, it aborts
-    with a response code of 403.
+    If the user hasn't sent an AUTH header
+    nor a session cookie,
+    this function aborts with a response code of
+    401 (Unauthorized).
 
-    If the user has provided a session ID cookie, it continues processing the request.
+    This function responds to the request depending
+    on the AUTH method, defined in 'auth',
+    which is defined by the 'AUTH_TYPE' environment
+    variable in the computer running this script,
+    which should be the server.
 
-    Also assigns 'request.current_user' to the current user.
+    If the AUTH method (defined in the
+    "AUTH_TYPE" environment variable) is Basic,
+    and the user's request is also using Basic,
+    this function attempts to validate the user's
+    credentials and allows them in if they are correct.
+
+    If the AUTH method the user is using is Basic,
+    and 'auth' is currently 'SessionAuth',
+    this function aborts with a response code of
+    403.
+
+    If the user has provided a session ID cookie,
+    <IMPLEMENT...>
+
+    Also assigns 'request.current_user' to the current
+    user.
     """
     if auth is None:
         return
 
-    _paths = [
-        '/api/v1/status/',
-        '/api/v1/unauthorized/',
-        '/api/v1/forbidden/',
-        '/api/v1/auth_session/login/'
-    ]
-    if not auth.require_auth(request.path, _paths):
+    if not auth.require_auth(
+        request.path,
+        [
+            '/api/v1/status/',
+            '/api/v1/unauthorized/',
+            '/api/v1/forbidden/',
+            '/api/v1/auth_session/login/'
+        ]
+    ):
         return
 
     AUTH_HEADER: str = auth.authorization_header(request)
     SESSION_COOKIE = auth.session_cookie(request)
 
     if AUTH_HEADER is None and SESSION_COOKIE is None:
-        # User has not provided credentials, nor has provided a session cookie.
+        # User has not provided credentials,
+        # nor has provided a session cookie.
         abort(401)
+
+    # assert type(AUTH_HEADER) == str
 
     USER: User = auth.current_user(AUTH_HEADER)
     # (if the 'auth' type is 'SessionAuth',
@@ -78,8 +120,11 @@ def authenticate() -> None:
     # instead of Session AUTH)
 
     if USER is None:
-        # User doesn't have valid credentials, or the user isn't using correct authorization.
+        # User doesn't have valid credentials,
+        # or the user isn't using correct authorization.
         abort(403)
+
+    # assert type(USER) == User
 
     request.current_user = USER
 
