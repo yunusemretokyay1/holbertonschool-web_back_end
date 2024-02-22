@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """ Auth module
 """
+from os import getenv
+from api.v1.views import app_views
+from flask import Flask, jsonify, abort, request
+from flask_cors import (CORS, cross_origin)
+import os
 from api.v1.auth.auth import Auth
-import base64
-from typing import TypeVar
-from models.user import User
+from api.v1.auth.basic_auth import BasicAuth
 
 
 class BasicAuth(Auth):
