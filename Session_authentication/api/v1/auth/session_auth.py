@@ -1,61 +1,54 @@
 #!/usr/bin/env python3
-""" Session auth module
-"""
-
+'''
+session authentication
+'''
 from api.v1.auth.auth import Auth
 from uuid import uuid4
 from models.user import User
 
 
 class SessionAuth(Auth):
-    """ Extend behavior of Auth class for session authentication. """
+    ''' enherits from Auth
+    '''
     user_id_by_session_id = {}
 
     def create_session(self, user_id: str = None) -> str:
-        """ Create and return a session ID for a user ID. """
-        if user_id is None or not isinstance(user_id, str):
+        '''creates a Session ID for a user_id
+        '''
+        if user_id is None or type(user_id) is not str:
             return None
 
-        session_id = str(uuid4())
-        SessionAuth.user_id_by_session_id[session_id] = user_id
-
-        return session_id
+        ID = str(uuid4())
+        self.user_id_by_session_id[ID] = user_id
+        return ID
 
     def user_id_for_session_id(self, session_id: str = None) -> str:
-        """ Return user ID associated with specified session ID. """
-        if session_id is None or not isinstance(session_id, str):
+        '''returns a User ID based on a Session ID
+        '''
+        if session_id is None or type(session_id) is not str:
             return None
 
-        return SessionAuth.user_id_by_session_id.get(session_id)
+        return self.user_id_by_session_id.get(session_id)
 
     def current_user(self, request=None):
-        """ Returns a User instance based on a cookie value """
-
-        session_id = self.session_cookie(request)
-        if session_id is None:
+        ''' returns a User instance based on a cookie value
+        '''
+        session_cookies = self.session_cookie(request)
+        if session_cookies is None:
             return None
-
-        user_id = self.user_id_for_session_id(session_id)
+        user_id = self.user_id_for_session_id(session_cookies)
         return User.get(user_id)
 
     def destroy_session(self, request=None):
-        """Deletes de user session / logout"""
-
+        ''' deletes the user session / logout
+        '''
         if request is None:
             return False
-
-        session_id = self.session_cookie(request)
-        if session_id is None:
+        session_cookies = self.session_cookie(request)
+        if not session_cookies:
             return False
-
-        user_id = self.user_id_for_session_id(session_id)
-
+        user_id = self.user_id_for_session_id(session_cookies)
         if not user_id:
             return False
-
-        try:
-            del self.user_id_by_session_id[session_id]
-        except Exception:
-            pass
-
+        del self.user_id_by_session_id[session_cookies]
         return True
