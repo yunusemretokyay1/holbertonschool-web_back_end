@@ -20,10 +20,10 @@ def hello_world() -> str:
 
 @app.route('/users', methods=['POST'])
 def register_user() -> str:
-    """ Register a new user """
+    """Registers a new user if it does not exist before"""
     try:
-       email = request.form['email']
-       password = request.form['password']
+        email = request.form['email']
+        password = request.form['password']
     except KeyError:
         abort(400)
 
