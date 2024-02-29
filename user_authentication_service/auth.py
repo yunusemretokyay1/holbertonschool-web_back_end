@@ -109,9 +109,8 @@ class Auth:
         self._db.update_user(user.id, reset_token=reset_token)
 
         return reset_token
-    
 
-    def  def update_password(self, reset_token: str, password: str) -> None:
+    def update_password(self, reset_token: str, password: str) -> None:
         """Uses reset token to validate update of users password"""
         if reset_token is None or password is None:
             return None
@@ -125,4 +124,3 @@ class Auth:
         self._db.update_user(user.id,
                              hashed_password=hashed_password,
                              reset_token=None)
-
