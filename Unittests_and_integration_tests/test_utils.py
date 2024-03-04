@@ -5,12 +5,12 @@ from parameterized import parameterized
 import unittest
 from unittest.mock import patch
 from utils import (access_nested_map, get_json, memoize)
+import requests
 
 
 class TestAccessNestedMap(unittest.TestCase):
-    """
-    Class for testing
-    """
+    """ Class for Testing Access Nested Map """
+
     @parameterized.expand([
         ({"a": 1}, ("a",), 1),
         ({"a": {"b": 2}}, ("a",), {'b': 2}),
@@ -30,7 +30,8 @@ class TestAccessNestedMap(unittest.TestCase):
             access_nested_map(nested_map, path)
         self.assertEqual(f"KeyError('{expected}')", repr(e.exception))
 
-    class TestGetJson(unittest.TestCase):
+
+class TestGetJson(unittest.TestCase):
     """ Class for Testing Get Json """
 
     @parameterized.expand([
@@ -45,6 +46,7 @@ class TestAccessNestedMap(unittest.TestCase):
         self.assertEqual(get_json(test_url), test_payload)
         mock.assert_called_once()
         patcher.stop()
-
-if __name__ == '__main__':
-    unittest.main()
+        
+        
+        if __name__ == '__main__':
+        unittest.main()
