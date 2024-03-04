@@ -3,7 +3,7 @@
 
 from parameterized import parameterized
 import unittest
-from unittest.mock import patch,Mock
+from unittest.mock import patch
 from utils import (access_nested_map, get_json, memoize)
 import requests
 
@@ -46,7 +46,3 @@ class TestGetJson(unittest.TestCase):
         self.assertEqual(get_json(test_url), test_payload)
         mock.assert_called_once()
         patcher.stop()
-        
-        
-        if __name__ == '__main__':
-        unittest.main()
