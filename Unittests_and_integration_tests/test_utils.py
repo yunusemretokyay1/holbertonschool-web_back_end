@@ -46,3 +46,32 @@ class TestGetJson(unittest.TestCase):
         self.assertEqual(get_json(test_url), test_payload)
         mock.assert_called_once()
         patcher.stop()
+        
+    class TestMemoize(unittest.TestCase):
+    """Class Testing Memoize"""
+    
+    
+    def test_memoize(self):
+        """Verify that while invoking a_property twice,
+          the correct outcome is returned, while ensuring that 
+          a_method is invoked only once using assert_called_once"""
+
+        class TestClass:
+            """
+            Test class for wrapping with memoize
+            """
+            
+            def a_method(self):
+                return 42
+
+
+            @memoize
+            def a_property(self):
+                return self.a_method()
+
+        with patch.object(TestClass, 'a_method') as mock:
+            test_class = TestClass()
+            test_class.a_property()
+            test_class.a_property()
+            mock.assert_called_once()   
+    
