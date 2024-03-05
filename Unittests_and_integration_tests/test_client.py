@@ -10,15 +10,15 @@ from unittest.mock import patch, PropertyMock, Mock
 
 
 class TestGithubOrgClient(unittest.TestCase):
-    """Testing github org client"""
+    """ Testing Github Org Client """
 
     @parameterized.expand([
-        ('google')
+        ('google'),
         ('abc')
     ])
     @patch('client.get_json')
     def test_org(self, input, mock):
-        """Test Githubclient.org"""
+        """Test that GithubOrgClient.org returns the correct value"""
         test_class = GithubOrgClient(input)
         test_class.org()
         mock.assert_called_once_with(f'https://api.github.com/orgs/{input}')
