@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
-""" Module Babel i18n """
+""" Module for trying out Babel i18n """
 from flask_babel import Babel
 from flask import Flask, render_template
-
 
 app = Flask(__name__, template_folder='templates')
 babel = Babel(app)
 
 
 class Config(object):
-    """ Configuration Class """
+    """ Configuration Class  """
 
     LANGUAGES = ['en', 'fr']
     BABEL_DEFAULT_LOCALE = 'en'
@@ -27,7 +26,7 @@ def hello_world() -> str:
 
 @babel.localeselector
 def get_locale() -> str:
-    """Select a language """
+    """Select a language translation to use for that request"""
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
