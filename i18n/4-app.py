@@ -27,10 +27,10 @@ def hello_world() -> str:
 @babel.localeselector
 def get_locale() -> str:
     """Get locale selector for babel"""
-    locale = request.args.get("locale")
-    if locale and locale in app.config['LANGUAGES']:
-        return locale
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
+    if request.args.get('locale'):
+        return request.args.get('locale')
+    else:
+        return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 if __name__ == "__main__":
