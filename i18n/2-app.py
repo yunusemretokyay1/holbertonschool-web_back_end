@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """ Module for trying out Babel i18n """
+from urllib import request
 from flask_babel import Babel
 from flask import Flask, render_template
 
