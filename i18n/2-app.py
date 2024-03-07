@@ -26,7 +26,7 @@ def hello_world() -> str:
 
 
 @babel.localeselector
-def get_locale() -> str:
+def get_locale():
     """Select a language"""
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
