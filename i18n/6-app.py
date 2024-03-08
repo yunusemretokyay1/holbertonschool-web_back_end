@@ -29,7 +29,6 @@ users = {
 
 def get_user() -> Union[dict, None]:
     """ Returns a user dictionary or
-    
     """
 
     try:
