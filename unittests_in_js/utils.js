@@ -1,21 +1,19 @@
 const Utils = {
     calculateNumber(type, a, b) {
-      const aRound = Math.round(a);
-      const bRound = Math.round(b);
-  
-      if (type === 'SUBTRACT') {
-        return aRound - bRound;
+      if (isNaN(a) || isNaN(b))
+        throw new TypeError();
+      switch (type) {
+        case 'SUM':
+          return Math.round(a) + Math.round(b);
+        case 'SUBTRACT':
+          return Math.round(a) - Math.round(b);
+        case 'DIVIDE':
+          if (Math.round(b) === 0) return 'Error';
+          return Math.round(a) / Math.round(b);
+        default:
+          throw new TypeError;
       }
-  
-      if (type === 'DIVIDE') {
-        if (bRound === 0) {
-          return 'Error';
-        }
-        return aRound / bRound;
-      }
-  
-      return aRound + bRound;
-    },
+    }
   };
   
   module.exports = Utils;
