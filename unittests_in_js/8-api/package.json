@@ -1,0 +1,17 @@
+{
+  "name": "8-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^5.1.0",
+    "mocha": "^10.3.0",
+    "request": "^2.88.2",
+    "sinon": "^17.0.1"
+  }
+}
