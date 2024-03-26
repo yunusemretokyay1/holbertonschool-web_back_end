@@ -1,0 +1,19 @@
+{
+  "devDependencies": {
+    "chai": "^5.1.0",
+    "mocha": "^10.3.0",
+    "sinon": "^17.0.1"
+  },
+  "dependencies": {
+    "request": "^2.88.2"
+  },
+  "name": "unittests_in_js",
+  "description": "unittests_in_js",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC"
+}
