@@ -1,7 +1,7 @@
 import kue from 'kue';
 
 const jobObj = {
-  phoneNumber: '5430192919',
+  phoneNumber: '4153518780',
   message: 'This is the code to verify your account',
 };
 
