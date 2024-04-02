@@ -1,2 +1,6 @@
 // count the documents inside the collection school
+<<<<<<< HEAD
 db.school.count()
+=======
+db.school.count()
+>>>>>>> 8bcc328742bbaf87c408b4a0dae230c6de92e1d9
